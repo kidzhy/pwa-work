@@ -11,4 +11,10 @@ self.addEventListener("fetch",function(evt){
       )
     )
   }
+  //拦截一张图片换成另一张
+  if(evt.request.url.includes("1.png")){
+    evt.respondWith(
+      fetch("img/2.png")
+    )
+  }
 });
