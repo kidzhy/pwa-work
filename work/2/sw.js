@@ -24,7 +24,7 @@ self.addEventListener("fetch",function(evt){
   evt.respondWith(
     fetch(evt.request).catch(()=>{
       return new Response(
-        `<html><body><h1 style="color:red">你好，你离线了</h1></body></html>`,
+        `<html><head><meta charset="UTF-8" /><title>离线了</title></head><body><h1 style="color:red">你好，你离线了</h1></body></html>`,
         {headers:{"Content-type":"text/html"}}
       )
     })
