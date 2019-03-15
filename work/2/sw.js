@@ -20,10 +20,12 @@ self.addEventListener("fetch",function(evt){
   //   )
   // }
 
+  //友好提示html离线页面
   evt.respondWith(
     fetch(evt.request).catch(()=>{
       return new Response(
-        "你看到了一个神奇的页面"
+        `<html><body><h1 style="color:red">你好，你离线了</h1></body></html>`,
+        {headers:{"Content-type":"text/html"}}
       )
     })
   )
