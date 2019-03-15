@@ -19,4 +19,13 @@ self.addEventListener("fetch",function(evt){
       })
     )
   }
+
+  evt.respondWith(
+    fetch(evt.request).catch(()=>{
+      new Response(
+        "你看到了一个神奇的页面"
+      )
+    })
+  )
+
 });
