@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>PWA实践2</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    serviceWorker 编辑
+  </body>
+  <script>
+    if("serviceWorker" in navigator){
+      navigator.serviceWorker.register("sw.js")
+      .then(function(register){
+        console.log("Service Worker registered with scope:", register.scope);
+      }).catch(function(err){
+        console.log("Service worker registration failed:", err);
+      })
+    }
+  </script>
+</html>
