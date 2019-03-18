@@ -1,7 +1,16 @@
+const CACHE_NAME = "v1";
+const CACHE_URLS = [
+  "index.html",
+  "404.html",
+  "css",
+  "css/style.css",
+  "img",
+  "img/1.png"
+];
 self.addEventListener("install", function(evt) {
   evt.waitUntil(
-    caches.open("v2").then(function(cache) {
-      return cache.add("404.html");
+    caches.open(CACHE_NAME).then(function(cache){
+      return cache.addAll(CACHE_URLS);
     })
   );
 });
