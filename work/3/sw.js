@@ -16,7 +16,13 @@ self.addEventListener("install", function(evt) {
 self.addEventListener("fetch", function(evt) {
   evt.respondWith(
     fetch(evt.request).catch(function() {
-      return caches.match("404.html");
+      return caches.match(evt.request).then(function(cache){
+        if(cache){
+          return cache;
+        }else if(evt.request.headers.get("accept").includes("text/html")){
+          return cache.match("404.html");
+        }
+      })
     })
   );
 });
