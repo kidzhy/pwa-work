@@ -3,7 +3,7 @@ self.addEventListener("install",function(){
 });
 
 self.addEventListener("activate",function(){
-  console.log("激活");
+  console.log("完成");
 });
 
 self.addEventListener("fetch",function(evt){
