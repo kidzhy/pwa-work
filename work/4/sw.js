@@ -1,5 +1,5 @@
-var CACHE_NAME = "v2";
-var CACHED_URLS = [
+const CACHE_NAME = "v2";
+const CACHED_URLS = [
   "index.html",
   "404.html",
   "img/1.png",
@@ -7,7 +7,6 @@ var CACHED_URLS = [
 ];
 
 self.addEventListener("install",function(evt){
-  console.log("安装");
   evt.waitUntil(
     caches.open(CACHE_NAME).then(function(cache){
       return cache.addAll(CACHED_URLS);
@@ -15,9 +14,6 @@ self.addEventListener("install",function(evt){
   )
 });
 
-self.addEventListener("activate",function(){
-  console.log("激活中");
-});
 
 self.addEventListener("fetch",function(evt){
   console.log("请求响应中");
