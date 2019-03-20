@@ -1,4 +1,5 @@
-const CACHE_NAME = "v3";
+importScripts('https://cdnjs.cloudflare.com/ajax/libs/cache.adderall/1.0.0/cache.adderall.js');
+const CACHE_NAME = "v4";
 const CACHED_URLS = [
   "index.html",
   "404.html",
@@ -6,10 +7,14 @@ const CACHED_URLS = [
   "css/style.css"
 ];
 
+const NEW_CACHE = [
+  "img/2.png"
+]
+
 self.addEventListener("install",function(evt){
   evt.waitUntil(
     caches.open(CACHE_NAME).then(function(cache){
-      return cache.addAll(CACHED_URLS);
+      adderall.addAll(cache,CACHED_URLS,NEW_CACHE);
     })
   )
 });
