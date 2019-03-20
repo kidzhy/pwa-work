@@ -3,7 +3,7 @@ const CACHED_URLS = [
   "index.html",
   "404.html",
   "img/1.png",
-  "css/style/css"
+  "css/style.css"
 ];
 
 self.addEventListener("install",function(evt){
