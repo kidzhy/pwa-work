@@ -1,4 +1,4 @@
-const CACHE_NAME = "v2";
+const CACHE_NAME = "v3";
 const CACHED_URLS = [
   "index.html",
   "404.html",
@@ -10,6 +10,20 @@ self.addEventListener("install",function(evt){
   evt.waitUntil(
     caches.open(CACHE_NAME).then(function(cache){
       return cache.addAll(CACHED_URLS);
+    })
+  )
+});
+
+self.addEventListener("activate",function(evt){
+  evt.waitUntil(
+    caches.keys().then(function(names){
+      return Promise.all(
+        names.map(function(name){
+          if(CACHE_NAME!==name){
+            return caches.delete(name);
+          }
+        })
+      )
     })
   )
 });
