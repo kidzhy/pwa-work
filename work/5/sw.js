@@ -15,8 +15,13 @@ self.addEventListener("install",evt=>{
 
 self.addEventListener("fetch",evt=>{
   evt.respondWith(
-    caches.match(evt.request).then(response=>{
-      return response||fetch(evt.request)
+    caches.open("v1").then(cache=>{
+      return cache.match(evt.request).then(cachedResponse=>{
+        return cachedResponse||fetch(evt.request).then(networkResponse=>{
+          cache.put(evt.request,networkResponse.clone())
+          return networkResponse;
+        })
+      })
     })
   )
-})
+});
