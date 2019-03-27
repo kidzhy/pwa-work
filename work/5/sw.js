@@ -14,7 +14,7 @@ self.addEventListener("install",evt=>{
 });
 
 self.addEventListener("fetch",evt=>{
-  evt.respendWith(
+  evt.respondWith(
     caches.match(evt.request).then(response=>{
       return response||fetch(evt.request)
     })
