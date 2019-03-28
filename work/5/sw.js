@@ -14,14 +14,26 @@ self.addEventListener("install",evt=>{
 });
 
 self.addEventListener("fetch",evt=>{
-  evt.respondWith(
-    caches.open("v1").then(cache=>{
-      return fetch(evt.request).then(networkResponse=>{
-        cache.put(evt.request,networkResponse.clone());
-        return networkResponse;
-      }).catch(()=>{
-        return caches.match(event.request);
+  const requestURL = new URL(evt.request.url);
+  if(requestURL.pathname==="/"||requestURL.pathname==="index.html"){
+    evt.respondWith(
+      caches.open("v1").then(cache=>{
+        return cache.match("index.html").then(cachedResponse=>{
+          const fetchPromise = fetch("index.html").then(networkResponse=>{
+            cache.put("index.html",networkResponse.clone())
+            return networkResponse;
+          })
+          return cachedResponse||fetchPromise;
+        })
       })
-    })
-  )
+    )
+  }else if(CACHE_URLS.includes(requestURL.href)||CACHE_URLS.includes(requestURL.pathname)){
+    evt.respondWith(
+      caches.open("v1").then(cache=>{
+        return cache.match(evt.request).then(response=>{
+          return response||fetch(evt.request)
+        })
+      })
+    )
+  }
 });
