@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>PWA实践6---indexDB</title>
+  <link rel="stylesheet" type="css/text" href="css/style.css" />
+</head>
+<body>
+  <h1>浏览器数据库</h1>
+</body>
+<script>
+
+  var request = window.indexedDB.open("my-database",2);
+
+  request.onerror = function(event){
+    console.log(event.target.error);
+  }
+  request.onsuccess = function(event){
+    var db = event.target.result;
+
+    var  data = [
+      {"passport_number":"6651","first_name":"Tal"}
+    ];
+    var customerTransaction = db.transaction("customers","readwrite");
+    customerTransaction.onerror = function(e){
+      console.log(e.target.error);
+    }
+    var customerStore = customerTransaction.objectStore("customers");
+    customerStore.add(data[0]);
+
+  }
+  request.onupgradeneeded = function(event){
+    var db = event.target.result;
+    db.createObjectStore("customers",{
+      keyPath:"passport_number"
+    })
+  }
+
+//   if ("serviceWorker" in navigator) {
+//     navigator.serviceWorker.register("sw.js")
+//       .then(function (register) {
+//         console.log("Service Worker registered with scope:", register.scope);
+//       }).catch(function (err) {
+//         console.log("Service worker registration failed:", err);
+//       })
+//   }
+</script>
+</html>
